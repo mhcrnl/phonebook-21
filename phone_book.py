@@ -1,16 +1,61 @@
 contacts = {}
 
+
+def create_instance():
+    name = input("Enter new name: ")
+    telephone = input("Enter new telephone: ")
+    try:
+        create(name, telephone)
+    except NameError:
+        print("Your name already in the contacts")
+
+
+def update_instance():
+    name = input("Enter the name of the contact you want to update: ")
+    telephone = input("Enter new telephone: ")
+    try:
+        update(name, telephone)
+    except NameError:
+        print("This name is not in your phonebook")
+
+
+def delete_instance():
+    name = input("Enter the name of the contact you want to delete: ")
+    try:
+        delete(name)
+    except NameError:
+        print("This name is not in your phonebook")
+
+
+def read_instance():
+    name = input("Enter the name of the contact you want to read: ")
+    try:
+        read(name)
+    except NameError:
+        print("This name is not in your phonebook")
+
+
+def list_instances():
+    if contacts:
+        for name, telephone in contacts.items():
+            print(name, telephone)
+    else:
+        print("There are no contacts in the phonebook")
+
+
 def create(name, telephone):
     if name not in contacts:
         contacts[name] = telephone
     else:
         raise NameError()
 
+
 def update(name, telephone):
     if name in contacts:
         contacts[name] = telephone
     else:
         raise NameError()
+
 
 def delete(name):
     if name in contacts:
@@ -35,35 +80,15 @@ while True:
             #q: quit
             """)
     if command == "c":
-        name = input("Enter new name: ")
-        telephone = input("Enter new telephone: ")
-        try:
-            create(name, telephone)
-        except NameError:
-            print("Your name already in the contacts")
+        create_instance()
     elif command == "d":
-        name = input("Enter the name of the contact you want to delete: ")
-        try:
-            delete(name)
-        except NameError:
-            print("This name is not in your phonebook")
+        delete_instance()
     elif command == "r":
-        name = input("Enter the name of the contact you want to read: ")
-        try:
-            read(name)
-        except NameError:
-            print("This name is not in your phonebook")
-            continue
+        read_instance()
     elif command == "u":
-        name = input("Enter the name of the contact you want to update: ")
-        telephone = input("Enter new telephone: ")
-        try:
-            update(name, telephone)
-        except NameError:
-            print("This name is not in your phonebook")
+        update_instance()
     elif command == "l":
-        for name, telephone in contacts.items():
-            print(name, telephone)
+        list_instances()
     elif command == "q":
         break
     else:
